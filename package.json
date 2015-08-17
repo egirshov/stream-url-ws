@@ -1,0 +1,35 @@
+{
+  "name": "stream-url-ws",
+  "version": "0.0.1",
+  "homepage": "http://github.com/gritzko/stream-url-ws",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gritzko/stream-url-ws.git"
+  },
+  "author": {
+    "email": "victor.grishchenko@gmail.com",
+    "name": "Victor Grishchenko"
+  },
+  "email": "swarm.js@gmail.com",
+  "license": "MIT",
+  "files": [
+    "test/*.js",
+    "index.js",
+    "LICENSE",
+    "README.md"
+  ],
+  "main": "index.js",
+  "browser": "index.js",
+  "dependencies": {
+      "ws": "^0.7.2",
+      "stream-url": "^0.0.5"
+  },
+  "devDependencies": {
+    "tape": "^4.0.2",
+    "tap-spec": "^4.0.2",
+    "tape-dom": "^0.0.4"
+  },
+  "scripts": {
+    "test": "tape test/*.js | tap-spec"
+  }
+}
