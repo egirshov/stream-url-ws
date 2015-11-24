@@ -22,6 +22,7 @@
   "browser": "index.js",
   "dependencies": {
       "websocket-stream": "2.1.0",
+      "eventemitter3": "^1.1.1",
       "stream-url": "~0.0.12"
   },
   "devDependencies": {

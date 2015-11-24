@@ -38,5 +38,4 @@
 ## API
 
 Client handle is a duplex stream with additional `connect` event.
-Server is a regular websocket server with additional `stream` event which carries stream-wrapped websocket (there is still `connection` event which carries
-raw websocket object).
+Server implements websocket server events but `connection` carries a stream rather than a websocket.
