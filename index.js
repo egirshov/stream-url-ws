@@ -16,7 +16,7 @@ function ws_listen (stream_url, options, callback) {
     });
     // WebSocket.Server does not have 'listening' event
     if (callback) {
-        process.nextTick(function () { callback(null, ws_server); });
+        setTimeout(function () { callback(null, ws_server); }, 0);
     }
     return ws_server;
 }
