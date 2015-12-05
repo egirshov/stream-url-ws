@@ -1,6 +1,6 @@
 {
   "name": "stream-url-ws",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "homepage": "http://github.com/gritzko/stream-url-ws",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "README.md"
   ],
   "main": "index.js",
-  "browser": "index.js",
+  "browser": "browser.js",
   "dependencies": {
       "ws": "^0.7.2",
       "stream-url": "^0.0.5"
