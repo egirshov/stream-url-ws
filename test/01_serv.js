@@ -14,10 +14,10 @@ tape ('1.A create echo server', function (t) {
     var url = 'ws://localhost:'+port;
     t.plan(4);
     var wss = su.listen(url, function ready() {
-        wss.on('connection', function (stream) {
+        wss.on('stream', function (stream) {
             stream.on('data', function (data) {
-                console.log('data', data);
-                stream.send(data);
+                // console.log('data', data);
+                stream.write(data);
             });
             stream.on('end', function () {
                 t.pass('server stream ends');
@@ -26,12 +26,12 @@ tape ('1.A create echo server', function (t) {
             });
         });
         var ws = su.connect(url, function () {
-            console.log('connected');
+            // console.log('connected');
             ws.on('data', function (data) {
                 t.equal(''+data, 'test');
                 ws.end(); // TODO on(end)
             });
-            ws.send('test', function () {
+            ws.write('test', function () {
                 t.pass('sent');
             });
             ws.on('end', function () {
