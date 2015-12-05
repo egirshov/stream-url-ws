@@ -15,7 +15,7 @@ tape ('1.A create echo server', function (t) {
     console.log(url);
     t.plan(4);
     var wss = su.listen(url, function ready() {
-        wss.on('stream', function (stream) {
+        wss.on('connection', function (stream) {
             stream.on('data', function (data) {
                 console.log('data', data);
                 stream.write(data);
