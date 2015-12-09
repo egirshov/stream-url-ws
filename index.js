@@ -6,7 +6,7 @@ var EventEmitter = require('eventemitter3');
 
 // register URL adaptors for ws streams
 stream_url.register('ws:', ws_listen, ws_connect);
-//stream_url.register('wss:', ws_listen, ws_connect);
+stream_url.register('wss:', ws_listen, ws_connect);
 
 function ws_listen (stream_url, options, callback) {
     var parsed = url.parse(stream_url);
