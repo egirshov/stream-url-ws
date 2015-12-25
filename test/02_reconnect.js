@@ -58,20 +58,20 @@ tape ('2.C reconnect after disconnect', function (t) {
             t.pass('New incoming connection');
             ws.end('something');
         });
-    });
 
-    var fired = 0;
-    var options = {reconnect: {maxRetries: 2, minDelay: 100}};
-    var client = su.connect(url, options, function (err, ws) {
-        fired += 1;
-        t.ok(ws, 'Expect established connection');
-        t.notOk(err, 'No errors expected');
-        if (fired >= 2) {
-            client.disable();
-            setTimeout(function () {
-                ws_server.close();
-                t.end();
-            }, 500);
-        }
+        var fired = 0;
+        var options = {reconnect: {maxRetries: 2, minDelay: 100}};
+        var client = su.connect(url, options, function (err, ws) {
+            fired += 1;
+            t.ok(ws, 'Expect established connection');
+            t.notOk(err, 'No errors expected');
+            if (fired >= 2) {
+                client.disable();
+                setTimeout(function () {
+                    ws_server.close();
+                    t.end();
+                }, 500);
+            }
+        });
     });
 });
