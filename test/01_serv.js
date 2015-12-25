@@ -13,7 +13,7 @@ tape ('1.A create echo server', function (t) {
     var port = Math.floor(Math.random()*10000) + 2000;
     var url = 'ws://localhost:'+port;
     console.log(url);
-    t.plan(4);
+    t.plan(6);
     var wss = su.listen(url, function ready() {
         wss.on('connection', function (stream) {
             stream.on('data', function (data) {
@@ -26,7 +26,10 @@ tape ('1.A create echo server', function (t) {
                 t.end();
             });
         });
-        var ws = su.connect(url, function () {
+        var ws = su.connect(url, function (err, sock) {
+            t.notOk(err, 'No errors expected');
+            t.equal(sock, ws, 'Callback parameter is the stream itself');
+
             // console.log('connected');
             ws.on('data', function (data) {
                 t.equal(''+data, 'test');
@@ -39,5 +42,14 @@ tape ('1.A create echo server', function (t) {
                 t.pass('sent');
             });
         });
+    });
+});
+
+tape ('1.B connection fail', function (t) {
+    var url = 'ws://localhost:1';
+    var ws = su.connect(url, function (err, socket) {
+        t.equal(err.code, 'ECONNREFUSED', 'Connection refused');
+        t.notOk(socket, 'Socket parameter should be null');
+        t.end();
     });
 });

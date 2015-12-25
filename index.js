@@ -34,9 +34,17 @@ function ws_listen (stream_url, options, callback) {
 function ws_connect (stream_url, options, callback) {
     var stream = websocket(stream_url.href);
     if (callback) {
-        stream.on('connect', function () {
+        var on_connect = function () {
+            stream.removeListener('error', on_error);
             callback(null, stream);
-        });
+        };
+        var on_error = function (e) {
+            stream.removeListener('connect', on_connect);
+            callback(e, null);
+        }
+        stream.once('connect', on_connect);
+        stream.once('error', on_error);
+
     }
     return stream;
 }
