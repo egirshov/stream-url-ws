@@ -26,7 +26,7 @@ tape ('2.B reconnect', function (t) {
     var client = su.connect(url, options, function (err, ws) {
         t.ok(ws, 'Expect established connection');
         t.notOk(err, 'No errors expected');
-        client.disable();
+        client.cancel();
         ws.end();
     });
 
@@ -66,7 +66,7 @@ tape ('2.C reconnect after disconnect', function (t) {
             t.ok(ws, 'Expect established connection');
             t.notOk(err, 'No errors expected');
             if (fired >= 2) {
-                client.disable();
+                client.cancel();
                 setTimeout(function () {
                     ws_server.close();
                     t.end();

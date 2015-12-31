@@ -1,6 +1,6 @@
 {
   "name": "stream-url-ws",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "homepage": "http://github.com/gritzko/stream-url-ws",
   "repository": {
     "type": "git",
@@ -21,9 +21,9 @@
   "main": "index.js",
   "browser": "browser.js",
   "dependencies": {
-      "websocket-stream": "2.1.0",
+      "websocket-stream": "^2.1.0",
       "eventemitter3": "^1.1.1",
-      "stream-url": "egirshov/stream-url#reconnect"
+      "stream-url": "0.1.x"
   },
   "devDependencies": {
     "tape": "^4.0.2",
