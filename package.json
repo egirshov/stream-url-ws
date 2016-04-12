@@ -23,7 +23,7 @@
   "dependencies": {
       "websocket-stream": "^2.1.0",
       "eventemitter3": "^1.1.1",
-      "stream-url": "0.1.x"
+      "stream-url": "egirshov/stream-url#a4ef661a3"
   },
   "devDependencies": {
     "tape": "^4.0.2",
