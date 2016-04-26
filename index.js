@@ -36,6 +36,14 @@ function ws_connect (stream_url, options, callback) {
     if (callback) {
         var on_connect = function () {
             stream.removeListener('error', on_error);
+
+            // EXPERIMENTAL: websocket ping-pong based keep-alive
+            if (options && options.interval) {
+                enable_ws_keepalive(stream,
+                                    options.interval,
+                                    options.timeout || options.interval * 3);
+            }
+
             callback(null, stream);
         };
         var on_error = function (e) {
@@ -47,6 +55,53 @@ function ws_connect (stream_url, options, callback) {
 
     }
     return stream;
+}
+
+function enable_ws_keepalive(ws, intervalMs, timeoutMs) {
+    if (!ws || !ws.socket) {
+        return;
+    }
+
+    var timestamp = Date.now();
+
+    function update_timestamp () {
+        timestamp = Date.now();
+    }
+
+    ws.socket.on('pong', update_timestamp);
+    var interval = setInterval(function () {
+        var ok = true;
+
+        if (ws.socket) {
+            try {
+                ws.socket.ping();
+            } catch (e) {
+                ok = false;
+            }
+        } else {
+            ok = false;
+        }
+
+        var now = Date.now();
+        if (now - timestamp >= timeoutMs) {
+            ok = false;
+        }
+
+        if (!ok) {
+            if (ws.socket) ws.socket.removeListener('pong', update_timestamp);
+            clearInterval(interval);
+            interval = null;
+            ws.end();
+        }
+    }, intervalMs);
+
+    ws.on('close', function () {
+        if (interval) {
+            if (ws.socket) ws.socket.removeListener('pong', update_timestamp);
+            clearInterval(interval);
+            interval = null;
+        }
+    });
 }
 
 module.exports = stream_url;
